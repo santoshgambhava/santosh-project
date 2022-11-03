@@ -1,0 +1,152 @@
+{% extends 'header.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+    </head>
+
+    <body>
+                
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Products</a></li>
+                    <li class="breadcrumb-item active">Login & Register</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Login Start -->
+        <div class="login">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">    
+                        <div class="register-form">
+                            {% if msg1 %}
+                                <b style="color:blue;">{{msg1}}</b>
+                            {% endif %}
+                            <form name="signup" method="POST" action="{% url 'signup' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>User Type</label>
+                                    <select name="usertype" class="form-control">
+                                        <option>---Select User Type---</option>
+                                        <option value="user">User</option>
+                                        <option value="seller">Seller</option>                    
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" placeholder="First Name" name="fname">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Last Name</label>
+                                    <input class="form-control" type="text" placeholder="Last Name" name="lname">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="text" placeholder="E-mail" name="email" id="email">
+                                    <span id="email_error" style="color:red;"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Mobile No</label>
+                                    <input class="form-control" type="text" placeholder="Mobile No" name="mobile">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input class="form-control" type="password" placeholder="Password" name="password">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Retype Password</label>
+                                    <input class="form-control" type="password" placeholder="Password" name="cpassword">
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Submit</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="login-form">
+                             {% if msg2 %}
+                                <b style="color:blue;">{{msg2}}</b>
+                            {% endif %}
+                            <form name="login" method="POST" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="text" placeholder="E-mail" name="email" id="email1">
+                                    <span id="email_error1" style="color:red;"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input class="form-control" type="password" placeholder="Password" name="password">
+                                </div>
+                               
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn">Submit</button>
+                                    <a href="{% url 'forgot_password' %}"><button class="btn" type="button">Forgot Password</button></a> 
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Login End -->
+        <script>
+            $("#email").change(function(){
+                var email=$(this).val();
+                
+                $.ajax({
+                    url: '/ajax/validate_email/',
+                    data:{
+                        'email':email                        
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if (data.is_taken){
+                            /*document.getElementById("email").style.border="5px solid red";*/
+                            document.getElementById("email_error").innerHTML="This Email ID Already Registered"
+                        }else{
+                            /*document.getElementById("email").style.border="5px solid green";*/
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            $("#email1").change(function(){
+                var email=$(this).val();
+                
+                $.ajax({
+                    url: '/ajax/validate_email/',
+                    data:{
+                        'email':email                        
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if (!data.is_taken){
+                            /*document.getElementById("email").style.border="5px solid red";*/
+                            document.getElementById("email_error1").innerHTML="This Email ID Is Not Registered"
+                        }else{
+                            /*document.getElementById("email").style.border="5px solid green";*/
+                        }
+                    }
+                });
+            });
+        </script>
+      
+    </body>
+</html>
+{% endblock %}

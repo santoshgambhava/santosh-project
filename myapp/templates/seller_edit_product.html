@@ -1,0 +1,103 @@
+{% extends 'seller_header.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+
+    <body>
+        <!-- Top bar Start -->
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'seller_index' %}">Home</a></li>
+                   
+                    <li class="breadcrumb-item active">Login & Register</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Login Start -->
+        <div class="login">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">    
+                        <div class="register-form">
+                            {% if msg %}
+                                <b style="color:blue;">{{msg}}</b>
+                            {% endif %}
+                            <form name="edit_product" method="post" action="{% url 'seller_edit_product' pk=product.pk %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            <div class="row">
+                                 <div class="col-md-12">
+                                    <label>Product Catagory</label>
+                                     <select name="product_category" class="form-control" >
+                                        {% if product.product_catagory == "Men" %}
+                                            
+                                            <option>---Select Product Category---</option>
+                                            <option value="Men" name="product_category" selected>Men</option>
+                                            <option value="Women" name="product_category">Women</option>
+                                            <option value="Kids" name="product_category">Kids</option>
+                                        {% elif product.product_catagory == "Women" %}
+                                            <option>---Select Product Category---</option>
+                                            <option value="Men" name="product_category">Men</option>
+                                            <option value="Women" name="product_category" selected>Women</option>
+                                            <option value="Kids" name="product_category">Kids</option>
+                                        {% elif product.product_catagory == "Kids" %}
+
+                                            <option>---Select Product Category---</option>
+                                            <option value="Men" name="product_category">Men</option>
+                                            <option value="Women" name="product_category">Women</option>
+                                            <option value="Kids" name="product_category" selected>Kids</option>
+                                        {% else %}
+                                            <option>---Select Product Category---</option>
+                                            <option value="Men" name="product_category">Men</option>
+                                            <option value="Women" name="product_category">Women</option>
+                                            <option value="Kids" name="product_category">Kids</option>
+
+                                        {%  endif %}
+
+                                    </select>
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Name</label>
+                                    <input class="form-control" type="text" placeholder="Product Name" name="product_name" value="{{product.product_name}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Product Price"</label>
+                                    <input class="form-control" type="text" placeholder="Product Price" name="product_price" value="{{product.product_price}}">
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Product Description</label>
+                                    <textarea rows="5" cols="20" class="form-control"  placeholder="Product Description" name="product_desc">{{product.product_desc}} </textarea>
+                                </div>
+                                 <div class="col-md-3">
+                                   <img src="{{product.product_image.url}}" width="100px" height="100px">
+                                </div>
+                                <div class="col-md-9">
+                                    <label>Product Image</label>
+                                    <input class="form-control" type="file" placeholder="Product Image" name="product_image" >
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <button class="btn">Edit Product</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Login End -->
+        
+        <!-- Footer Start -->
+       
+    </body>
+</html>
+{% endblock %}

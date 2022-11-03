@@ -1,0 +1,63 @@
+{% extends 'seller_header.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+       
+        
+           
+        
+        <!-- Featured Product Start -->
+        <div class="featured-product product">
+            <div class="container-fluid">
+                <div class="section-header">
+                    <h1>Featured Product</h1>
+                </div>
+                <div class="row align-items-center product-slider product-slider-">
+                
+                    <div class="col-lg-3">
+                        <div class="product-item">
+                            <div class="product-title">
+                                <a href="#">{{product.product_name}}</a>
+                                <div class="ratting">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="product-image">
+                                <a href="product-detail.html">
+                                    <img src="{{product.product_image.url}}" alt="Product Image" style="height: 300px;width: 283px;">
+                                </a>
+                                <div class="product-action">
+                                    <a href="{% url 'seller_edit_product' pk=product.pk %}"><i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'seller_delete_product' pk=product.pk %}"><i class="fa fa-trash"></i></a>
+                                   
+                                </div>
+                            </div>
+                            <div class="product-price">
+                                <h3><span>Rs.</span>{{product.product_price}}</h3>
+                                <h5 style="color: white;">{{product.product_desc}}</h5>
+                                
+                            </div>
+                        </div>
+                   
+                    
+                    </div>
+                    
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Featured Product End -->       
+        
+      
+      
+    </body>
+</html>
+{% endblock %}

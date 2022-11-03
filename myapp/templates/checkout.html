@@ -1,0 +1,103 @@
+{% extends 'header.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   
+    </head>
+
+    <body>
+         
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Checkout</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Checkout Start -->
+        <div class="checkout">
+            <div class="container-fluid"> 
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="checkout-inner">
+                            <div class="billing-address">
+                                <h2>Billing Address</h2>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>First Name</label>
+                                        <input class="form-control" type="text" value="{{user.fname}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Last Name"</label>
+                                        <input class="form-control" type="text"  value="{{user.lname}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>E-mail</label>
+                                        <input class="form-control" type="text" value="{{user.email}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Mobile No</label>
+                                        <input class="form-control" type="text" value="{{user.mobile}}">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Address</label>
+                                        <input class="form-control" type="text" value="{{user.address}}">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Country</label>
+                                        <input class="form-control" type="text" value="{{user.country}}">
+                                    </div>
+                                   
+                                    <div class="col-md-6">
+                                        <label>City</label>
+                                        <input class="form-control" type="text" value="{{user.city}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>State</label>
+                                        <input class="form-control" type="text" value="{{user.state}}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>ZIP Code</label>
+                                        <input class="form-control" type="text" value="{{user.zipcode}}">
+                                    </div>
+                                   
+                                   
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="checkout-inner">
+                            <div class="checkout-summary">
+                                <h2>Grand Total<span>{{checkout_price}}</span></h2>
+                            </div>
+
+                            <div class="checkout-payment">
+                               
+                                <div class="checkout-btn">
+                                    <form name="checkout" method="post" action="{% url 'pay' %}">
+                                        {% csrf_token %} 
+                                        <input type="hidden" name="amount" value="{{checkout_price}}">
+                                        <button>Place Order</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Checkout End -->
+        
+      
+    </body>
+</html>
+{% endblock %}
